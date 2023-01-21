@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -11,12 +11,21 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Fallback from './pages/Fallback';
+const Home = lazy(() => import("./pages/Home"));
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-
+        <Router>
+          <Suspense fallback={<Fallback />}>
+            <Routes>
+              <Route path="/home" element={<Home />} />
+            </Routes>
+          </Suspense>
+        </Router>
       </Box>
     </ChakraProvider>
   );
