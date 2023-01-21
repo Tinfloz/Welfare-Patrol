@@ -8,11 +8,13 @@ import {
   Code,
   Grid,
   theme,
+  Flex,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Fallback from './pages/Fallback';
+import Navbar from './components/Navbar';
 const Home = lazy(() => import("./pages/Home"));
 const Splash = lazy(() => import("./pages/Splash"));
 
@@ -27,6 +29,15 @@ function App() {
               <Route path="/" element={<Splash />} />
             </Routes>
           </Suspense>
+          <Flex
+            position="fixed"
+            bottom="0"
+            w="100%"
+            justify={"center"}
+            alignItems={"center"}
+          >
+            <Navbar />
+          </Flex>
         </Router>
       </Box>
     </ChakraProvider>
