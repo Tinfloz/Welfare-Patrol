@@ -1,58 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   VStack,
   Input,
   Flex,
-  Text,
   Image,
-  FormControl,
-  FormLabel,
+  Box,
 } from '@chakra-ui/react';
 import home from '../assests/house.svg';
 import location from '../assests/location.svg';
+import ButtonComponent from './ButtonComponent';
 
 const Creds = ({ register }) => {
+
+  const onClick = useCallback(() => {
+    // call api
+  }, [register])
+
   return (
     <>
-      <Flex justify="center" height="90vh" width="100%">
-        <Flex justify="center" mt="10vh">
-          <VStack spacing="4vh">
-            {register ? (
-              <VStack spacing="4vh">
-                <Image src={location} w="50vh" />
-                <Flex width="60%" justifyContent="center">
-                  <Text fontSize="5vh">Create an account</Text>
-                </Flex>
-                <FormControl>
-                  <FormLabel>Name</FormLabel>
-                  <Input type="text" />
-                  <FormLabel mt="2vh">Email address</FormLabel>
-                  <Input type="email" />
-                  <FormLabel mt="2vh">Password</FormLabel>
-                  <Input type="password" />
-                  <FormLabel mt="2vh">Confirm Password</FormLabel>
-                  <Input type="password" />
-                </FormControl>
-              </VStack>
-            ) : (
-              <VStack spacing="4vh">
-                <Image src={home} w="50vh" />
-                <Flex width="60%" justifyContent="center">
-                  <Text fontSize="5vh">Sign In</Text>
-                </Flex>
-                <FormControl>
-                  <FormLabel>Email address</FormLabel>
-                  <Input type="email" />
-                  <FormLabel mt="5vh">Password</FormLabel>
-                  <Input type="password" />
-                </FormControl>
-              </VStack>
-            )}
+      <Box
+        w="50vh"
+        h="50vh"
+      >
+        <Flex
+          justify="center"
+          alignItems="center"
+        >
+          <VStack spacing={register ? "3vh" : "4vh"}>
+            <Image
+              src={register ? (location) : (home)}
+              alt="register"
+              w="4ovh"
+              h="auto"
+            />
+            {
+              register ? (
+                <>
+                  <Input placeholder='name' />
+                  <Input placeholder="email" />
+                  <Input placeholder="password" />
+                  <Input placeholder='confirm password' />
+                </>
+              ) : (
+                <>
+                  <Input placeholder="email" />
+                  <Input placeholder="password" />
+                </>
+              )
+            }
+            <ButtonComponent register={register ? true : false} handleClick={onClick} />
           </VStack>
         </Flex>
-      </Flex>
+      </Box>
     </>
   );
 };
 
 export default Creds;
+
+
