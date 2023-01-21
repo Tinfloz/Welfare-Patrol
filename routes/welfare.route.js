@@ -6,7 +6,7 @@ let { checkToken } = require('../utils/middleware.js');
 
 const router = express.Router();
 
-router.route('/welfare').get(checkToken, welfare.getRequests);
-router.route('/welfare').post(checkToken, welfare.createRequest);
+router.route('/').get(checkToken, welfare.getRequests);
+router.route('/').post(checkToken, welfare.createRequest);
 
 module.exports = router;
