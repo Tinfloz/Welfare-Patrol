@@ -14,6 +14,7 @@ import { Logo } from './Logo';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Fallback from './pages/Fallback';
 const Home = lazy(() => import("./pages/Home"));
+const Splash = lazy(() => import("./pages/Splash"));
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Suspense fallback={<Fallback />}>
             <Routes>
               <Route path="/home" element={<Home />} />
+              <Route path="/" element={<Splash />} />
             </Routes>
           </Suspense>
         </Router>
