@@ -1,9 +1,17 @@
 import React from 'react';
 import Creds from '../components/Creds';
+import { Flex } from "@chakra-ui/react";
+
 const SignUp = () => {
   return (
     <>
-      <Creds register={true} />
+      <Flex
+        justify="center"
+        alignItems="center"
+        p="15vh"
+      >
+        <Creds register={true} />
+      </Flex>
     </>
   );
 };
