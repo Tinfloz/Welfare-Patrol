@@ -20,8 +20,9 @@ const Home = lazy(() => import('./pages/Home'));
 const Splash = lazy(() => import('./pages/Splash'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
-const CreateRequest = lazy(() => import("./pages/CreateRequest"));
-const AcceptRequest = lazy(() => import("./pages/AcceptRequests"));
+const Profile = lazy(() => import('./pages/Profile'));
+const CreateRequest = lazy(() => import('./pages/CreateRequest'));
+const Messages = lazy(() => import('./pages/Messages')); const AcceptRequest = lazy(() => import("./pages/AcceptRequests"));
 const Chat = lazy(() => import("./pages/Chat"));
 
 
@@ -32,6 +33,8 @@ function App() {
         <Suspense fallback={<Fallback />}>
           <Router>
             <Routes>
+              <Route path="/messages" element={<Messages />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
@@ -51,8 +54,9 @@ function App() {
             </Flex>
           </Router>
         </Suspense>
+
       </Box>
-    </ChakraProvider>
+    </ChakraProvider >
   );
 }
 
