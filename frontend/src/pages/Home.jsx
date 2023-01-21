@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Heading, IconButton, VStack, Box } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import RequestCard from '../components/RequestCard';
 
 const Home = () => {
+
+    const getCenter = () => {
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject)
+        });
+    };
+
+
+    useEffect(() => {
+        (async () => {
+            const coords = await getCenter();
+            const response = await axios.get()
+        })()
+    }, [])
+
     return (
         <Box
             p="5vh"
