@@ -1,3 +1,4 @@
+const Chat = require('../models/chat.model');
 const Users = require('../models/user.model');
 const Welfare = require('../models/welfare.model');
 
@@ -60,6 +61,7 @@ exports.acceptRequest = async (req, res) => {
         const welfareRequest = await Welfare.findOneAndUpdate({
             acceptedBy: user,
         });
+        await Chat.create({sender: user, receiver: welfareRequest.postedBy});
         console.log(welfareRequest);
         res.status(200).send({message: "Success"});
     } catch (error) {
