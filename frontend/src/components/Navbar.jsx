@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <>
             {
-                path === "/" || path === "/login" || path === "/register" || path === "/create/request" || path === "/accept/request" ? (
+                path === "/" || path === "/login" || path === "/register" || path === "/create/request" || path === "/accept/request" || path === "/chat" ? (
                     null
                 ) : (
                     <>

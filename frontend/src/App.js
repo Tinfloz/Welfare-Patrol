@@ -22,14 +22,15 @@ const SignUp = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
 const CreateRequest = lazy(() => import("./pages/CreateRequest"));
 const AcceptRequest = lazy(() => import("./pages/AcceptRequests"));
+const Chat = lazy(() => import("./pages/Chat"));
 
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-        <Router>
-          <Suspense fallback={<Fallback />}>
+        <Suspense fallback={<Fallback />}>
+          <Router>
             <Routes>
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SignUp />} />
@@ -37,18 +38,19 @@ function App() {
               <Route path="/create/request" element={<CreateRequest />} />
               <Route path="/accept/request" element={<AcceptRequest />} />
               <Route path="/" element={<Splash />} />
+              <Route path='/chat' element={<Chat />} />
             </Routes>
-          </Suspense>
-          <Flex
-            position="fixed"
-            bottom="0"
-            w="100%"
-            justify={"center"}
-            alignItems={"center"}
-          >
-            <Navbar />
-          </Flex>
-        </Router>
+            <Flex
+              position="fixed"
+              bottom="0"
+              w="100%"
+              justify={"center"}
+              alignItems={"center"}
+            >
+              <Navbar />
+            </Flex>
+          </Router>
+        </Suspense>
       </Box>
     </ChakraProvider>
   );

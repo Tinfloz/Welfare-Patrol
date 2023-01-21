@@ -61,4 +61,3 @@ const AcceptRequestCard = ({ posted, duration }) => {
 }
 
 export default AcceptRequestCard
-// {posted ? <FiUser /> : (duration ? (<BsArrowCounterclockwise />) : (null))}
