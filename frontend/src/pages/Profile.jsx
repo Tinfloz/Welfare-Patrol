@@ -26,7 +26,9 @@ const Profile = () => {
       >
         <VStack spacing="4vh">
           <Flex height="10vh" width="100%">
-            <Text fontSize="5vh">Dave Howard</Text>
+            <Text as="b" fontSize="5vh">
+              Dave Howard
+            </Text>
           </Flex>
           <Card>
             <CardBody>
