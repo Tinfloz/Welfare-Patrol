@@ -14,7 +14,8 @@ const welfareSchema = mongoose.Schema({
     },
     address: {
         type: String
-    }
+    },
+    acceptedBy: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 }, { timestamps: true })
 
 

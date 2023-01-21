@@ -8,5 +8,6 @@ const router = express.Router();
 
 router.route('/').get(checkToken, welfare.getRequests);
 router.route('/').post(checkToken, welfare.createRequest);
+router.route('/:id').post(checkToken, welfare.acceptRequest);
 
 module.exports = router;

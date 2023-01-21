@@ -4,10 +4,8 @@ const Welfare = require('../models/welfare.model');
 exports.getRequests = async (req, res) => {
     try {
         const {email} = req.user;
-        console.log(email)
         const {coordinateA, coordinateB} = req.query;
-        console.log("coordinateB", coordinateB)
-        const user = await Users.findOne({ where: { email } });
+        const user = await Users.findOne({ email });
         if (!user) {
             throw "User doesn't exist";
         }
@@ -21,7 +19,6 @@ exports.getRequests = async (req, res) => {
                 }
             }
         })
-        console.log(welfareRequests);
         res.status(200).send({ welfareRequests });
     } catch (error) {
         console.error(error);
@@ -33,7 +30,7 @@ exports.createRequest = async (req, res) => {
     try {
         const { address, coordinateA, coordinateB } = req.body;
         const {email} = req.user;
-        const user = await Users.findOne({ where: { email } });
+        const user = await Users.findOne({ email });
         if (!user) {
             throw "User doesn't exist";
         }
@@ -45,9 +42,26 @@ exports.createRequest = async (req, res) => {
                 coordinates: [coordinateA, coordinateB]
             }
         });
-        console.log(welfareRequest);
         res.status(200).send({message: "Success"})
  
+    } catch (error) {
+        res.status(500).send({ error: error.errors?.[0]?.message || error });
+    }
+}
+
+exports.acceptRequest = async (req, res) => {
+    try {
+        const {email} = req.user;
+        const user = await Users.findOne({ email });
+        console.log("USER", user);
+        if (!user) {
+            throw "User doesn't exist";
+        }
+        const welfareRequest = await Welfare.findOneAndUpdate({
+            acceptedBy: user,
+        });
+        console.log(welfareRequest);
+        res.status(200).send({message: "Success"});
     } catch (error) {
         res.status(500).send({ error: error.errors?.[0]?.message || error });
     }

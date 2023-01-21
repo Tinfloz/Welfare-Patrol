@@ -8,14 +8,11 @@ let checkToken = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.SECRET);
 
       let user = await Users.findOne({
-        where: {
-          email: decoded.email
-        }, attributes: { exclude: ['password'] }
+        email: decoded.email, attributes: { exclude: ['password'] }
       });
       if (user.email === undefined) {
         throw "Token invalid";
       }
-      console.log("users", user);
       req.user = user;
       next();
     } else {
