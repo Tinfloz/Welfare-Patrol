@@ -1,5 +1,7 @@
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const axios = require("axios");
+const { response } = require('express');
 
 exports.signIn = async (req, res) => {
     try {
@@ -42,3 +44,35 @@ exports.signUp = async (req, res) => {
         res.status(500).send({ error: error.errors?.[0]?.message || error });
     }
 }
+
+exports.profile = async (req, res) => {
+    try {
+        const { email } = req.user;
+        const user = await User.findOne({ email });
+        if (!user) {
+            throw "User doesn't exist";
+        }
+        res.status(200).send({ email, createdAt: user.createdAt, name: user.name});
+ 
+    } catch (error) {
+        res.status(500).send({ error: error.errors?.[0]?.message || error });
+    }
+}
+
+exports.reverseGeoCode = async (req, res) => {
+    try {
+        const {coordinateA, coordinateB} = req.query;
+        const URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinateA},${coordinateB}&sensor=true&key=${process.env.GMAPSKEY}`;
+        const response = await axios(URL).then(async (response) => response.data);
+        const addressComponents = response.results[0].address_components;
+
+        const address = `${addressComponents[2].short_name}, ${addressComponents[4].short_name}`;
+
+        res.status(200).send({ address });
+ 
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: error.errors?.[0]?.message || error });
+    }
+}
+
