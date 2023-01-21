@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import bcrypt from "bcryptjs";
+const mongoose = require('mongoose');
+const bcrypt = require("bcryptjs");
 
 const userSchema = mongoose.Schema({
     email: {
@@ -12,7 +12,6 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, 'A password is required'],
-        minLength: 8,
     },
     name: {
         type: String,
@@ -21,7 +20,7 @@ const userSchema = mongoose.Schema({
     },
 }, { timestamps: true })
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
+userSchema.methods.authenticate = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 
@@ -34,4 +33,4 @@ userSchema.pre("save", async function (next) {
 });
 
 const Users = mongoose.model("Users", userSchema);
-export default Users;
+module.exports = Users;

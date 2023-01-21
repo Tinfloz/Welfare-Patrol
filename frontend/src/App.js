@@ -12,11 +12,12 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Fallback from './pages/Fallback';
-import Navbar from './components/Navbar';
-const Home = lazy(() => import("./pages/Home"));
-const Splash = lazy(() => import("./pages/Splash"));
+const Home = lazy(() => import('./pages/Home'));
+const Splash = lazy(() => import('./pages/Splash'));
+const SignUp = lazy(() => import('./pages/SignUp'));
+const Login = lazy(() => import('./pages/Login'));
 
 function App() {
   return (
@@ -25,6 +26,8 @@ function App() {
         <Router>
           <Suspense fallback={<Fallback />}>
             <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
               <Route path="/" element={<Splash />} />
             </Routes>
