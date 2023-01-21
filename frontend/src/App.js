@@ -15,12 +15,13 @@ import { Logo } from './Logo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Fallback from './pages/Fallback';
 import Navbar from './components/Navbar';
-import CreateRequest from './pages/CreateRequest';
+// import CreateRequest from './pages/CreateRequest';
 const Home = lazy(() => import('./pages/Home'));
 const Splash = lazy(() => import('./pages/Splash'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
-// const CreateRequest = lazy(() => import("./pages/CreateRequest"));
+const CreateRequest = lazy(() => import("./pages/CreateRequest"));
+const AcceptRequest = lazy(() => import("./pages/AcceptRequests"));
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
               <Route path="/register" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
               <Route path="/create/request" element={<CreateRequest />} />
+              <Route path="/accept/request" element={<AcceptRequest />} />
               <Route path="/" element={<Splash />} />
             </Routes>
           </Suspense>

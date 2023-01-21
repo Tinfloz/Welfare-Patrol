@@ -18,16 +18,23 @@ const CreateRequest = () => {
                             alignItems="Center"
                             p="20vh"
                         >
-                            <Spinner />
+                            <Spinner
+                                speed="0.65s"
+                                thickness='4px'
+                                color='blue.500'
+                                emptyColor='gray.300'
+                                size="xl"
+                            />
                         </Flex>
                     </>
                 ) : (
                     <>
-                        {/* <VStack spacing="-0.19vh"> */}
+                        {/* <VStack spacing="-10vh"> */}
                         <Box
                             h="60vh"
                             w="100%"
                             position="relative"
+                            zIndex="-10"
                         >
                             <GoogleMap
                                 center={{ lat: 45.5307609, lng: -73.5526934 }}
@@ -50,7 +57,6 @@ const CreateRequest = () => {
                             justify="center"
                             alignItems="center"
                             zIndex="1"
-                            position="absolute"
                         >
                             <VStack p="3vh" spacing="5vh">
                                 <Flex
