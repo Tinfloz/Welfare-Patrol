@@ -17,6 +17,7 @@ const Home = lazy(() => import('./pages/Home'));
 const Splash = lazy(() => import('./pages/Splash'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
+const Profile = lazy(() => import('./pages/Profile'));
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Router>
           <Suspense fallback={<Fallback />}>
             <Routes>
+              <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
