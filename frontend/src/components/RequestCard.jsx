@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Card, Heading, Badge, Text, CardBody, Stack, Spinner } from "@chakra-ui/react";
+import { Flex, Card, Heading, Badge, Text, CardBody, Stack, Spinner, HStack } from "@chakra-ui/react";
 import { useJsApiLoader, GoogleMap, Circle } from "@react-google-maps/api";
 
 const RequestCard = () => {
@@ -7,6 +7,20 @@ const RequestCard = () => {
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     })
+
+    const options = {
+        strokeColor: '#00ab41',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#39e75f',
+        fillOpacity: 0.35,
+        clickable: false,
+        draggable: false,
+        editable: false,
+        visible: true,
+        radius: 250,
+        zIndex: 1
+    }
 
     return (
         <>

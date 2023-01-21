@@ -1,8 +1,8 @@
 import React from 'react';
 import { Flex, HStack, IconButton } from "@chakra-ui/react";
-import { AiOutlineHome } from "react-icons/ai";
-import { BiMessageRounded } from "react-icons/bi";
-import { CgProfile } from "react-icons/cg";
+import { AiFillHome } from "react-icons/ai";
+import { IoIosText } from "react-icons/io";
+import { RiAccountCircleFill } from "react-icons/ri";
 
 const Navbar = () => {
     return (
@@ -24,15 +24,15 @@ const Navbar = () => {
                 >
                     <HStack spacing="10vh">
                         <IconButton
-                            icon={<AiOutlineHome size="3vh" />}
+                            icon={<AiFillHome size="4vh" style={{ fill: "white" }} />}
                             style={{ background: "#F8D9D2" }}
                         />
                         <IconButton
-                            icon={<BiMessageRounded size="3vh" />}
+                            icon={<IoIosText size="4vh" style={{ fill: "white" }} />}
                             style={{ background: "#F8D9D2" }}
                         />
                         <IconButton
-                            icon={<CgProfile size="3vh" />}
+                            icon={<RiAccountCircleFill size="4vh" style={{ fill: "white" }} />}
                             style={{ background: "#F8D9D2" }}
                         />
                     </HStack>
