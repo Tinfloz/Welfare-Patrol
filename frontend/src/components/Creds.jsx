@@ -6,8 +6,8 @@ import {
   Image,
   Box,
 } from '@chakra-ui/react';
-import home from '../assests/house.svg';
-import location from '../assests/location.svg';
+import home from '../assets/house.svg';
+import location from '../assets/location.svg';
 import ButtonComponent from './ButtonComponent';
 
 const Creds = ({ register }) => {
