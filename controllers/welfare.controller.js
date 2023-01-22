@@ -44,7 +44,7 @@ exports.createRequest = async (req, res) => {
                 type: "Point",
                 coordinates: [coordinateA, coordinateB]
             },
-            neighborhood: userController.getReverseGeoCodeFn(coordinateA, coordinateB)
+            neighborhood: await userController.getReverseGeoCodeFn(coordinateA, coordinateB)
         });
         res.status(200).send({ message: "Success", welfareRequest })
 
