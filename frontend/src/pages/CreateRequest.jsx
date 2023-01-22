@@ -114,10 +114,8 @@ const CreateRequest = () => {
                   localStorage.setItem('lng', place.geometry.location.lng());
                 }}
                 options={{
-                  types: ['(regions)'],
-                  componentRestrictions: { country: 'ca' },
+                  types: ["geocode", "establishment"],
                 }}
-                defaultValue="Hall Building"
               />
               ;
               <Button
