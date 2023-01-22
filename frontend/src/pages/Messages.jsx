@@ -20,6 +20,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Messages = () => {
   const [chats, setChats] = useState([]);
+  const [userId, setUserId] = useState("");
   const navigate = useNavigate();
   useEffect(()=>{
     const token = localStorage.getItem("welfarePatrol-user");
@@ -35,6 +36,7 @@ const Messages = () => {
       .then((json) => {
         if (json.chats){
           setChats(json.chats);
+          setUserId(json.userId);
         } else {
           console.error("Failed!");
         }
@@ -67,15 +69,23 @@ const Messages = () => {
           </InputGroup>
           <Divider orientation="horizontal" />
           {
-            chats.map(({chat, lastMessage}, id)=>{
-              let date = new Date(lastMessage.createdAt);
+            chats.map(({chat, lastMessage, messages}, id)=>{
+              console.log(lastMessage);
+              let date;
+              if (lastMessage){
+               date = new Date(lastMessage.createdAt);
+              }
               return (
                 <MessageBlock
                 key={id}
+                chatId={chat._id}
                 name={chat.sender.name} 
-                time={`${date.getHours()}:${date.getMinutes()}`} 
-                message={lastMessage.content} 
-                sent={lastMessage.sender === chat.receiver["_id"]}/>
+                time={lastMessage ? `${date?.getHours()}:${date?.getMinutes()}` : ""} 
+                lastMessage={lastMessage?.content} 
+                sent={lastMessage?.sender === chat.receiver["_id"]}
+                messages={messages}
+                userId={userId}
+                />
               )
             })
           }
@@ -85,9 +95,13 @@ const Messages = () => {
   );
 };
 
-const MessageBlock = ({name, time, message, sent}) => {
+const MessageBlock = ({chatId, name, time, lastMessage, sent, messages, userId}) => {
+  const navigate = useNavigate();
+  const onClick = () => {
+    navigate(`/chat/${chatId}`, {state: {messages, name, chatId, userId}});
+  }
   return (         
-  <VStack spacing={"1vh"} align={"left"} width="100%">
+  <VStack spacing={"1vh"} align={"left"} width="100%" onClick={onClick}>
    <Flex width="100%" justifyContent={"space-between"} marginTop={"0px"}>
     <Text as="b" fontSize="2vh">
       {name}
@@ -104,10 +118,10 @@ const MessageBlock = ({name, time, message, sent}) => {
         as={BiCheckDouble}
         marginRight="1vh"
         />
-        <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{message}</Text>
+        <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{lastMessage}</Text>
         </>
       ):(<Flex justifyContent={"space-between"} alignItems="center" width={"100%"}>
-        <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{message}</Text>
+        <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{lastMessage}</Text>
 
           <Icon
           as={BsFillCircleFill}

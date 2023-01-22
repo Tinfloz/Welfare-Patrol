@@ -15,15 +15,15 @@ exports.getChats = async (req, res) => {
         .populate("receiver");
         const currentUserId = req.user.id;
         const filteredChats = await Promise.all(chats.map(async (chat)=>{
-            let message = await Message.findOne({chat: chat.id}, null,  { sort: { createdAt: -1 } });
+            let messages = await Message.find({chat: chat.id}, null,  { sort: { createdAt: 1 } });
             if (chat.sender === currentUserId){
                 let temp = chat.sender;
                 chat.sender = chat.receiver;
                 chat.receiver = temp;
             }
-            return {chat, lastMessage: message};
+            return {chat, lastMessage: messages[messages.length - 1], messages};
         }));
-        res.status(200).send({ chats: filteredChats });
+        res.status(200).send({ chats: filteredChats, userId: currentUserId });
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: error.errors?.[0]?.message || error });
