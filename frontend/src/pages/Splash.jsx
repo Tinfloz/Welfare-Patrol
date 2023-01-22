@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Text, VStack, Image } from '@chakra-ui/react';
-import logo from '../assests/splash.svg';
+import logo from '../assets/splash.svg';
 
 const Splash = () => {
   return (
