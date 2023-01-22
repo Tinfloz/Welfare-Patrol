@@ -24,10 +24,6 @@ const Home = () => {
         lon: null
     });
 
-    const onClick = useCallback(() => {
-        navigate("/accept/request", { state: welfareRequest })
-    }, [welfareRequest])
-
     useEffect(() => {
         (async () => {
             const coords = await getCenter();
@@ -114,6 +110,7 @@ const Home = () => {
                                         <RequestCard
                                             welfareRequest={element}
                                             userLocation={position}
+                                            position={position}
                                         />
                                     ))
                                 }

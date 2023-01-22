@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 const RequestCard = ({ userLocation, welfareRequest }) => {
 
+    console.log(userLocation)
+
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     });
@@ -30,7 +32,7 @@ const RequestCard = ({ userLocation, welfareRequest }) => {
     return (
         <>
             <Card w="90vh" h="50vh" onClick={() => {
-                navigate("/accept/request", { state: welfareRequest })
+                navigate("/accept/request", { state: { welfareRequest, userLocation } })
             }}>
                 {
                     !isLoaded ? (

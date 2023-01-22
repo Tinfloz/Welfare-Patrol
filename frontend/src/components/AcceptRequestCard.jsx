@@ -5,7 +5,7 @@ import { BsArrowCounterclockwise } from "react-icons/bs";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { timeSince } from '../helpers/time.since';
 
-const AcceptRequestCard = ({ posted, duration, welfareRequest }) => {
+const AcceptRequestCard = ({ posted, duration, welfareRequest, hidden }) => {
 
     return (
         <>
@@ -23,7 +23,7 @@ const AcceptRequestCard = ({ posted, duration, welfareRequest }) => {
                 </HStack>
                 <Text>
                     {
-                        posted ? "Dave H." : (duration ? "3 days ago" : "1874 Rue Dufresne")
+                        posted ? welfareRequest?.welfareRequest?.postedBy?.name : (duration ? `${timeSince(welfareRequest?.welfareRequest?.createdAt.split("T")[0])}` : (hidden ? "Hidden" : welfareRequest?.welfareRequest?.address))
                     }
                 </Text>
             </Flex>
