@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Flex,
   VStack,
@@ -11,11 +11,46 @@ import {
 } from '@chakra-ui/react';
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import Autocomplete from 'react-google-autocomplete';
+import fetchApi from '../components/FetchCustom';
+import { useNavigate } from 'react-router-dom';
 
 const CreateRequest = () => {
   const token = localStorage.getItem('user');
   console.log(token);
+  const navigate = useNavigate();
   const [location, setLocation] = useState(null);
+  const postWelfareRequest = useCallback(async () => {
+    const address = localStorage.getItem('address');
+    const coordA = localStorage.getItem('lat');
+    const coordB = localStorage.getItem('lng');
+    try {
+      fetchApi(`/api/welfare`, {
+        method: 'post',
+        body: JSON.stringify({
+          address: address,
+          coordinateA: coordA,
+          coordinateB: coordB,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(json => {
+          if (json.message === 'Success') {
+            navigate(`/home`);
+          } else {
+            console.error('Failed!');
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [location, navigate]);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places'],
@@ -74,8 +109,7 @@ const CreateRequest = () => {
                 onPlaceSelected={place => {
                   console.log(place);
                   setLocation(place);
-                  localStorage.setItem('location', place.formatted_address);
-                  var lat = place.geometry.location.lat();
+                  localStorage.setItem('address', place.formatted_address);
                   localStorage.setItem('lat', place.geometry.location.lat());
                   localStorage.setItem('lng', place.geometry.location.lng());
                 }}
@@ -92,7 +126,7 @@ const CreateRequest = () => {
                 borderWidth="1px"
                 borderColor="gray.300"
                 style={{ background: '#F8D9D2' }}
-                // onClick={postWelfareRequest}
+                onClick={postWelfareRequest}
                 color="white"
               >
                 CREATE REQUEST

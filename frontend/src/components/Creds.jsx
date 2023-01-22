@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { VStack, Input, Flex, Image, Box } from '@chakra-ui/react';
 import home from '../assets/house.svg';
 import location from '../assets/location.svg';
-import fetchApi from "../components/FetchCustom";
+import fetchApi from '../components/FetchCustom';
 
 import ButtonComponent from './ButtonComponent';
 import { useNavigate } from 'react-router-dom';
@@ -24,29 +24,26 @@ const Creds = ({ register }) => {
   const onClick = useCallback(async () => {
     // call api
     try {
-      const URL = register
-        ? "/api/signUp" : "/api/signIn";
-        fetchApi(URL, {
-          method: "post",
-          body: JSON.stringify({email: user.email, password: user.password}),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.token){
-
-            localStorage.setItem('welfarePatrol-user', json.token);
+      const URL = register ? '/api/signUp' : '/api/signIn';
+      fetchApi(URL, {
+        method: 'post',
+        body: JSON.stringify({ email: user.email, password: user.password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => res.json())
+        .then(json => {
+          if (json.token) {
+            localStorage.setItem('user', json.token);
             navigate(`/home`);
           } else {
-            console.error("Failed!");
+            console.error('Failed!');
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
-
     } catch (error) {
       console.error(error);
     }
