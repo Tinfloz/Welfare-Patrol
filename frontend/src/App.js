@@ -41,7 +41,7 @@ function App() {
               <Route path="/create/request" element={<CreateRequest />} />
               <Route path="/accept/request" element={<AcceptRequest />} />
               <Route path="/" element={<Splash />} />
-              <Route path='/chat' element={<Chat />} />
+              <Route path='/chat/:id' element={<Chat />} />
             </Routes>
             <Flex
               position="fixed"

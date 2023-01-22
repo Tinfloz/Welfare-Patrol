@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Tooltip } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
+import "../assets/bubble.css";
 
 const TextMessage = ({ receive, text }) => {
     return (
@@ -7,8 +8,11 @@ const TextMessage = ({ receive, text }) => {
             <Flex
                 bg={!receive ? "blue.300" : "gray.200"}
                 color={!receive ? "white" : "black"}
-                justify="center"
+                justify="left"
                 alignItems="center"
+                maxWidth={"30vw"}
+                minH="1vh"
+                className={receive ? "msg rcvd" : "msg sent"}
             >
                 <Text>
                     {text}
