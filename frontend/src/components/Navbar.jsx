@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Navbar = () => {
-
+    const navigate = useNavigate();
     return (
         <Flex
         position="fixed"
@@ -40,14 +40,19 @@ const Navbar = () => {
                             <IconButton
                                 icon={<AiFillHome size="4vh" style={{ fill: "white" }} />}
                                 style={{ background: "#F8D9D2" }}
+                                onClick={()=>navigate("/home")}
                             />
                             <IconButton
                                 icon={<IoIosText size="4vh" style={{ fill: "white" }} />}
                                 style={{ background: "#F8D9D2" }}
+                                onClick={()=>navigate("/messages")}
+
                             />
                             <IconButton
                                 icon={<RiAccountCircleFill size="4vh" style={{ fill: "white" }} />}
                                 style={{ background: "#F8D9D2" }}
+                                onClick={()=>navigate("/profile")}
+
                             />
                         </Flex>
                     </Flex>

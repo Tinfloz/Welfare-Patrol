@@ -82,40 +82,48 @@ const CreateRequest = () => {
                 </>
             ) : (
                 <>
-                    {/* <VStack spacing="-10vh"> */}
-                    <Box h="60vh" w="100%" position="relative" zIndex="-10">
-                        <GoogleMap
-                            center={location}
-                            zoom={15}
-                            mapContainerStyle={{ width: '100%', height: '60vh' }}
-                            options={{
-                                mapTypeControl: false,
-                                zoomControl: false,
-                                streetViewControl: false,
-                                fullscreenControl: false,
-                            }}
+                    <VStack
+                        spacing="-5vh">
+                        <Box h="60vh" w="100%" >
+                            <GoogleMap
+                                center={location}
+                                zoom={15}
+                                mapContainerStyle={{ width: '100%', height: '60vh' }}
+                                options={{
+                                    mapTypeControl: false,
+                                    zoomControl: false,
+                                    streetViewControl: false,
+                                    fullscreenControl: false,
+                                }}
+                            >
+                                <Marker position={location} />
+                            </GoogleMap>
+                        </Box>
+
+                        <Box
+                            w="100vw"
+                            h="10vh"
+                            zIndex="1"
+                            borderTopWidth="1px"
+                            borderBottomWidth="1px"
+                            justify="center"
+                            alignItems="center"
+                            p="1vh"
+                            backgroundColor={"#fff"}
+                            borderTopRadius="7vh"
+                            borderBottomColor={"#fff"}
                         >
-                            <Marker position={location} />
-                        </GoogleMap>
-                    </Box>
-                    <Box
-                        h="39vh"
-                        borderTop="gray.300"
-                        borderTopWidth="1px"
-                        borderTopColor="gray.300"
-                        borderTopRadius="10vh"
-                        w="100%"
-                        justify="center"
-                        alignItems="center"
-                        zIndex="1"
-                    >
-                        <VStack p="3vh" spacing="5vh">
-                            <Flex justify="center" alignItems="center">
-                                <Heading size="md">{myLocation}</Heading>
-                            </Flex>
+
+                            <Heading
+                                size="md"
+                                my="2vw"
+                            >
+                                {"Montreal, Quebec"}
+                            </Heading>
+
                             <Autocomplete
                                 apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
-                                style={{ width: '50vh', height: "5vh", borderWidth: "1px", borderColor: "gray.300", padding: "2vh", borderRadius: "1vh" }}
+                                style={{ width: '80vh', height: "5vh", borderWidth: "1px", borderColor: "gray.300", padding: "2vh", borderRadius: "1vh", marginTop: "5vh" }}
                                 onPlaceSelected={place => {
                                     setLocation(prevState => ({
                                         ...prevState,
@@ -128,21 +136,21 @@ const CreateRequest = () => {
                                     types: ["geocode", "establishment"],
                                 }}
                             />
-                            ;
                             <Button
-                                w="50vh"
+                                w="80vw"
                                 borderRadius="2vh"
                                 borderWidth="1px"
                                 borderColor="gray.300"
-                                style={{ background: '#F8D9D2' }}
+                                style={{ background: "#F8D9D2" }}
+                                mt="5vh"
+                                size={"lg"}
                                 onClick={onClick}
-                                color="white"
                             >
                                 CREATE REQUEST
                             </Button>
-                        </VStack>
-                    </Box>
-                    {/* </VStack> */}
+                        </Box>
+                    </VStack>
+
                 </>
             )}
         </>

@@ -134,30 +134,27 @@ const AcceptRequests = () => {
                                 </GoogleMap>
                             </Box>
                             <Box
-                                w="100%"
-                                h="30vh"
-                                borderTopWidth="1px"
-                                borderTopColor="gray.300"
-                                borderTopRadius="10vh"
+                                w="100vw"
+                                h="10vh"
                                 zIndex="1"
                             >
-                                <Flex
-                                    justify="center"
-                                    alignItems="center"
-                                    p="3vh"
-                                >
-                                    <Heading
-                                        size="md"
-                                    >
-                                        {reqLocation}
-                                    </Heading>
-                                </Flex>
                                 <Box
                                     borderTopWidth="1px"
                                     borderBottomWidth="1px"
                                     borderTopColor="gray.300"
                                     borderBottomColor="gray.300"
+                                    justify="center"
+                                    alignItems="center"
+                                    p="1vh"
+                                    backgroundColor={"#fff"}
+                                    borderTopRadius="7vh"
                                 >
+                                       <Heading
+                                        size="md"
+                                        my="2vh"
+                                    >
+                                        {reqLocation}
+                                    </Heading>
                                     <AcceptRequestCard posted={true} welfareRequest={state} />
                                     <Divider />
                                     <AcceptRequestCard posted={false} duration={true} welfareRequest={state} />
@@ -168,18 +165,18 @@ const AcceptRequests = () => {
                                         )} />
                                 </Box>
                                 <Button
-                                    w="50vh"
+                                    w="80vw"
                                     borderRadius="2vh"
                                     borderWidth="1px"
                                     borderColor="gray.300"
                                     style={{ background: "#F8D9D2" }}
-                                    color="white"
                                     mt="5vh"
+                                    size={"lg"}
                                     onClick={
                                         acceptRequest
                                     }
                                 >
-                                    Accept
+                                    ACCEPT
                                 </Button>
                             </Box>
                         </VStack>

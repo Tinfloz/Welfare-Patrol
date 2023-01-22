@@ -101,9 +101,18 @@ const Profile = () => {
               </Stack>
             </CardBody>
           </Card>
-          <Button colorScheme="teal" variant="solid" onClick={logout}>
-            Sign Out
-          </Button>
+          <Button
+            w="80vw"
+            borderRadius="2vh"
+            borderWidth="1px"
+            borderColor="gray.300"
+            style={{ background: "#F8D9D2" }}
+            mt="5vh"
+            size={"lg"}
+            onClick={logout}
+        >
+            SIGN OUT
+        </Button>
         </VStack>
       </Flex>
       <Navbar/>

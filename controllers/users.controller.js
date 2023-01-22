@@ -63,7 +63,7 @@ exports.reverseGeoCode = async (req, res) => {
     try {
         const { coordinateA, coordinateB } = req.query;
         console.log(coordinateA, coordinateB)
-        const address = await getReverseGeoCodeFn(coordinateA, coordinateB);
+        const address = await this.getReverseGeoCodeFn(coordinateA, coordinateB);
 
         res.status(200).send({ address });
 
@@ -73,7 +73,7 @@ exports.reverseGeoCode = async (req, res) => {
     }
 }
 
-const getReverseGeoCodeFn = async (coordinateA, coordinateB) => {
+exports.getReverseGeoCodeFn = async (coordinateA, coordinateB) => {
     const URL = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${coordinateA},${coordinateB}&sensor=true&key=${process.env.GMAPSKEY}`;
     const response = await axios(URL).then(async (response) => response.data);
     const addressComponents = response.results[0].address_components;
@@ -81,5 +81,3 @@ const getReverseGeoCodeFn = async (coordinateA, coordinateB) => {
     const address = `${addressComponents[2].short_name}, ${addressComponents[4].short_name}`;
     return address;
 }
-
-exports.getReverseGeoCodeFn = this.getReverseGeoCodeFn;
