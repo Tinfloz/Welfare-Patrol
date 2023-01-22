@@ -15,7 +15,7 @@ import fetchApi from '../components/FetchCustom';
 import { useNavigate } from 'react-router-dom';
 
 const CreateRequest = () => {
-  const token = localStorage.getItem('user');
+  const token = localStorage.getItem('welfarePatrol-user');
   console.log(token);
   const navigate = useNavigate();
   const [location, setLocation] = useState(null);
