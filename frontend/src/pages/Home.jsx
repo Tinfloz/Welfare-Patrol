@@ -24,9 +24,12 @@ const Home = () => {
         lon: null
     });
 
+    console.log(position, "position")
+
     useEffect(() => {
         (async () => {
             const coords = await getCenter();
+            console.log(coords)
             setPosition(prevState => ({
                 ...prevState,
                 lat: coords.coords.latitude,

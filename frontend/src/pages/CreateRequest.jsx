@@ -13,19 +13,41 @@ import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import Autocomplete from 'react-google-autocomplete';
 import fetchApi from '../components/FetchCustom';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const CreateRequest = () => {
     const token = localStorage.getItem('welfarePatrol-user');
     console.log(token);
     const navigate = useNavigate();
     const { state } = useLocation();
-    const [location, setLocation] = useState(state);
+    console.log(state)
+    const [location, setLocation] = useState({
+        lat: state.position.lat,
+        lng: state.position.lon
+    });
+    const [myLocation, setMyLocation] = useState("")
     const [address, setAddress] = useState("");
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         id: 'google-map-script',
         libraries: ['places'],
     });
+
+    useEffect(() => {
+        (() => {
+            fetchApi(`/api/reverseGeocode?coordinateA=${location.lat}&coordinateB=${location.lng}`, {
+                method: "get",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(res => res.json()).then(
+                json => {
+                    setMyLocation(json.address)
+                }
+            )
+        })()
+    }, [])
 
     const onClick = () => {
         fetchApi("/api/welfare/", {
@@ -89,7 +111,7 @@ const CreateRequest = () => {
                     >
                         <VStack p="3vh" spacing="5vh">
                             <Flex justify="center" alignItems="center">
-                                <Heading size="md">Montreal , QC</Heading>
+                                <Heading size="md">{myLocation}</Heading>
                             </Flex>
                             <Autocomplete
                                 apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}

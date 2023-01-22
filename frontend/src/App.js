@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -15,6 +15,7 @@ import { Logo } from './Logo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Fallback from './pages/Fallback';
 import Navbar from './components/Navbar';
+import ProtectedRoute from './components/ResRoute';
 // import CreateRequest from './pages/CreateRequest';
 const Home = lazy(() => import('./pages/Home'));
 const Splash = lazy(() => import('./pages/Splash'));
@@ -27,6 +28,7 @@ const Chat = lazy(() => import("./pages/Chat"));
 
 
 function App() {
+
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
@@ -37,11 +39,25 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<SignUp />} />
+              {/* <Route
+                path="/home"
+                element={
+                  <ProtectedRoute token={token}>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              /> */}
               <Route path="/home" element={<Home />} />
               <Route path="/create/request" element={<CreateRequest />} />
-              <Route path="/accept/request" element={<AcceptRequest />} />
+              <Route path="/accept/request"
+                element={
+                  <AcceptRequest />
+                }
+              />
+              <Route path='/chat/:id' element={
+                <Chat />
+              } />
               <Route path="/" element={<Splash />} />
-              <Route path='/chat/:id' element={<Chat />} />
             </Routes>
           </Router>
         </Suspense>
