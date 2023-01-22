@@ -21,7 +21,7 @@ const Profile = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('welfarePatrol-user');
 
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState({});
   useEffect(() => {
     (async () => {
       try {
@@ -58,7 +58,7 @@ const Profile = () => {
         <VStack spacing="4vh">
           <Flex height="10vh" width="100%">
             <Text as="b" fontSize="5vh">
-              {userProfile.name}
+              {userProfile?.name}
             </Text>
           </Flex>
           <Card>
@@ -76,7 +76,7 @@ const Profile = () => {
                       </Text>
                     </Flex>
                     <Text pt="2" fontSize="md">
-                      {userProfile.email}
+                      {userProfile?.email}
                     </Text>
                   </HStack>
                 </Box>
@@ -93,7 +93,7 @@ const Profile = () => {
                     </Flex>
 
                     <Text pt="2" fontSize="md">
-                      {userProfile.createdAt.split('T')[0]}
+                      {userProfile?.createdAt?.split('T')[0]}
                     </Text>
                   </HStack>
                 </Box>
