@@ -15,21 +15,23 @@ import { Logo } from './Logo';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Fallback from './pages/Fallback';
 import Navbar from './components/Navbar';
-import CreateRequest from './pages/CreateRequest';
+// import CreateRequest from './pages/CreateRequest';
 const Home = lazy(() => import('./pages/Home'));
 const Splash = lazy(() => import('./pages/Splash'));
 const SignUp = lazy(() => import('./pages/SignUp'));
 const Login = lazy(() => import('./pages/Login'));
 const Profile = lazy(() => import('./pages/Profile'));
-// const CreateRequest = lazy(() => import('./pages/CreateRequest'));
-const Messages = lazy(() => import('./pages/Messages'));
+const CreateRequest = lazy(() => import('./pages/CreateRequest'));
+const Messages = lazy(() => import('./pages/Messages')); const AcceptRequest = lazy(() => import("./pages/AcceptRequests"));
+const Chat = lazy(() => import("./pages/Chat"));
+
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-        <Router>
-          <Suspense fallback={<Fallback />}>
+        <Suspense fallback={<Fallback />}>
+          <Router>
             <Routes>
               <Route path="/messages" element={<Messages />} />
               <Route path="/profile" element={<Profile />} />
@@ -37,21 +39,24 @@ function App() {
               <Route path="/register" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
               <Route path="/create/request" element={<CreateRequest />} />
+              <Route path="/accept/request" element={<AcceptRequest />} />
               <Route path="/" element={<Splash />} />
+              <Route path='/chat' element={<Chat />} />
             </Routes>
-          </Suspense>
-          <Flex
-            position="fixed"
-            bottom="0"
-            w="100%"
-            justify={'center'}
-            alignItems={'center'}
-          >
-            <Navbar />
-          </Flex>
-        </Router>
+            <Flex
+              position="fixed"
+              bottom="0"
+              w="100%"
+              justify={"center"}
+              alignItems={"center"}
+            >
+              <Navbar />
+            </Flex>
+          </Router>
+        </Suspense>
+
       </Box>
-    </ChakraProvider>
+    </ChakraProvider >
   );
 }
 
