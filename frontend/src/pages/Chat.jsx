@@ -91,7 +91,7 @@ const Chat = () => {
             {/* TODO: fix scroll */}
             <Flex className='chat' height={"80vh"} overflow="scroll">
                 {
-                    messages ?
+                    messages.length > 0 ?
                     messages.map((message, id)=>{
                         let date = new Date(message.createdAt);
                         return (

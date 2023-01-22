@@ -17,6 +17,7 @@ import { BiCheckDouble } from 'react-icons/bi';
 import { BsFillCircleFill } from 'react-icons/bs';
 import fetchApi from "../components/FetchCustom";
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const Messages = () => {
   const [chats, setChats] = useState([]);
@@ -91,6 +92,7 @@ const Messages = () => {
           }
         </VStack>
       </Flex>
+      <Navbar/>
     </>
   );
 };

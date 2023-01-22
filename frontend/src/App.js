@@ -43,15 +43,6 @@ function App() {
               <Route path="/" element={<Splash />} />
               <Route path='/chat/:id' element={<Chat />} />
             </Routes>
-            <Flex
-              position="fixed"
-              bottom="0"
-              w="100%"
-              justify={"center"}
-              alignItems={"center"}
-            >
-              <Navbar />
-            </Flex>
           </Router>
         </Suspense>
 
