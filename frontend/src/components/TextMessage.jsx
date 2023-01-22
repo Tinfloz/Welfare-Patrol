@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Tooltip } from '@chakra-ui/react';
+import { Flex, Tooltip, Text } from '@chakra-ui/react';
 
 const TextMessage = ({ receive, text }) => {
     return (

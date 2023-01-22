@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Flex, Heading, IconButton, VStack, Box, Spinner } from "@chakra-ui/react";
 import { IoMdAdd } from "react-icons/io";
 import RequestCard from '../components/RequestCard';
 import fetchApi from "../components/FetchCustom";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
 
-    const token = localStorage.getItem("user")
+    const token = localStorage.getItem("welfarePatrol-user");
+    const navigate = useNavigate();
 
     const getCenter = () => {
         return new Promise((resolve, reject) => {
@@ -14,25 +16,41 @@ const Home = () => {
         });
     };
 
-    const [welfareRequest, setWelfareRequest] = useState(null)
+
+
+    const [welfareRequest, setWelfareRequest] = useState(null);
+    const [position, setPosition] = useState({
+        lat: null,
+        lon: null
+    });
+
+    const onClick = useCallback(() => {
+        navigate("/accept/request", { state: welfareRequest })
+    }, [welfareRequest])
 
     useEffect(() => {
         (async () => {
             const coords = await getCenter();
-            try {
-                const response = await fetchApi(`/api/welfare?coordinateA=${coords.coords.latitude}&coordinateB=${coords.coords.longitude}`,
-                    {
-                        mehod: "get",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    });
-                console.log(response.data);
-                setWelfareRequest(response.data.welfareRequest);
-            } catch (error) {
-                console.log(error)
-            }
+            setPosition(prevState => ({
+                ...prevState,
+                lat: coords.coords.latitude,
+                lon: coords.coords.longitude
+            }));
+            fetchApi(`/api/welfare?coordinateA=${coords.coords.latitude}&coordinateB=${coords.coords.longitude}`,
+                {
+                    method: "get",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }).then(res => res.json()).then(json => {
+                    if (json.welfareRequests) {
+                        console.log(json.welfareRequests);
+                        setWelfareRequest(json.welfareRequests);
+                    } else {
+                        console.error("could not call api")
+                    }
+                })
         })()
     }, [])
 
@@ -88,11 +106,17 @@ const Home = () => {
                         <Flex
                             justify="center"
                             alignItems="center"
+                            pb="20vh"
                         >
                             <VStack spacing="5vh">
-                                <RequestCard />
-                                <RequestCard />
-                                <RequestCard />
+                                {
+                                    welfareRequest?.map(element => (
+                                        <RequestCard
+                                            welfareRequest={element}
+                                            userLocation={position}
+                                        />
+                                    ))
+                                }
                             </VStack>
                         </Flex>
                     </Box>

@@ -1,12 +1,17 @@
 import React from 'react';
 import { Flex, Card, Heading, Badge, Text, CardBody, Stack, Spinner, HStack } from "@chakra-ui/react";
 import { useJsApiLoader, GoogleMap, Circle } from "@react-google-maps/api";
+import { getDistance } from '../helpers/get.distance';
+import { timeSince } from '../helpers/time.since';
+import { useNavigate } from "react-router-dom";
 
-const RequestCard = () => {
+const RequestCard = ({ userLocation, welfareRequest }) => {
 
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-    })
+    });
+
+    const navigate = useNavigate();
 
     const options = {
         strokeColor: '#00ab41',
@@ -24,7 +29,9 @@ const RequestCard = () => {
 
     return (
         <>
-            <Card w="90vh" h="50vh">
+            <Card w="90vh" h="50vh" onClick={() => {
+                navigate("/accept/request", { state: welfareRequest })
+            }}>
                 {
                     !isLoaded ? (
                         <>
@@ -49,15 +56,14 @@ const RequestCard = () => {
                                     position="relative"
                                 >
                                     <GoogleMap
-                                        center={{ lat: 45.5307609, lng: -73.5526934 }}
+                                        center={{ lat: welfareRequest?.location?.coordinates[0], lng: welfareRequest?.location?.coordinates[1] }}
                                         zoom={15}
                                         mapContainerStyle={{ width: "100%", height: "40vh" }}
                                         options={{ mapTypeControl: false, zoomControl: false, streetViewControl: false, fullscreenControl: false }}
                                     >
                                         <Circle
                                             options={options}
-                                            center={{ lat: 45.5307609, lng: -73.5526934 }}
-
+                                            center={{ lat: welfareRequest?.location?.coordinates[0], lng: welfareRequest?.location?.coordinates[1] }}
                                         />
                                     </GoogleMap>
                                     <Flex
@@ -74,7 +80,7 @@ const RequestCard = () => {
                                             borderWidth="1px"
                                             borderColor="gray.500"
                                         >
-                                            8 days ago
+                                            {timeSince(welfareRequest?.createdAt.split("T")[0])}
                                         </Badge>
                                     </Flex>
                                 </Flex>
@@ -82,9 +88,12 @@ const RequestCard = () => {
                                     <Flex
                                         justify="space-between"
                                     >
-                                        <Heading size='md'>Ville Marie</Heading>
+                                        <Heading size='md'>{welfareRequest?.address}</Heading>
                                         <HStack spacing="3vh">
-                                            <Heading size="md">2 KM</Heading>
+                                            <Heading size="md">
+                                                {`${getDistance(userLocation.lat, userLocation.lon,
+                                                    welfareRequest?.location?.coordinates[0], welfareRequest?.location?.coordinates[1]).toFixed(2)} KM`}
+                                            </Heading>
                                         </HStack>
                                     </Flex>
                                 </Stack>

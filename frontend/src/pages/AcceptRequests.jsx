@@ -2,12 +2,16 @@ import React from 'react';
 import { Box, VStack, Flex, Spinner, Heading, Text, Divider, Button } from "@chakra-ui/react";
 import { useJsApiLoader, GoogleMap, Circle } from '@react-google-maps/api';
 import AcceptRequestCard from '../components/AcceptRequestCard';
+import { useLocation } from 'react-router-dom';
 
 const AcceptRequests = () => {
 
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     });
+
+    const { state } = useLocation();
+    console.log(state)
 
     const options = {
         strokeColor: '#00ab41',
@@ -51,14 +55,14 @@ const AcceptRequests = () => {
                                 h="60vh"
                             >
                                 <GoogleMap
-                                    center={{ lat: 45.5307609, lng: -73.5526934 }}
+                                    center={{ lat: state?.location?.coordinates[0], lng: state?.location?.coordinates[1] }}
                                     zoom={15}
                                     mapContainerStyle={{ width: "100%", height: "60vh" }}
                                     options={{ mapTypeControl: false, zoomControl: false, streetViewControl: false, fullscreenControl: false, zIndex: "0" }}
                                 >
                                     <Circle
                                         options={options}
-                                        center={{ lat: 45.5307609, lng: -73.5526934 }}
+                                        center={{ lat: state?.location?.coordinates[0], lng: state?.location?.coordinates[1] }}
                                     />
                                 </GoogleMap>
                             </Box>
@@ -87,11 +91,11 @@ const AcceptRequests = () => {
                                     borderTopColor="gray.300"
                                     borderBottomColor="gray.300"
                                 >
-                                    <AcceptRequestCard posted={true} />
+                                    <AcceptRequestCard posted={true} welfareRequest={state} />
                                     <Divider />
-                                    <AcceptRequestCard posted={false} duration={true} />
+                                    <AcceptRequestCard posted={false} duration={true} welfareRequest={state} />
                                     <Divider />
-                                    <AcceptRequestCard posted={false} duration={false} />
+                                    <AcceptRequestCard posted={false} duration={false} welfareRequest={state} />
                                 </Box>
                                 <Button
                                     w="50vh"
