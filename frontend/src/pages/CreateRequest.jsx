@@ -19,7 +19,7 @@ const CreateRequest = () => {
   console.log(token);
   const navigate = useNavigate();
   const [location, setLocation] = useState(null);
-  const postWelfareRequest = useCallback(async () => {
+  const postWelfareRequest = async () => {
     const address = localStorage.getItem('address');
     const coordA = localStorage.getItem('lat');
     const coordB = localStorage.getItem('lng');
@@ -39,7 +39,7 @@ const CreateRequest = () => {
         .then(res => res.json())
         .then(json => {
           if (json.message === 'Success') {
-            navigate(`/home`);
+            // Change Marker
           } else {
             console.error('Failed!');
           }
@@ -50,7 +50,7 @@ const CreateRequest = () => {
     } catch (error) {
       console.error(error);
     }
-  }, [location, navigate]);
+  };
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places'],

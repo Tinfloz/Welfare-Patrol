@@ -12,7 +12,7 @@ import RequestCard from '../components/RequestCard';
 import fetchApi from '../components/FetchCustom';
 
 const Home = () => {
-  const token = localStorage.getItem('user');
+  const token = localStorage.getItem('welfarePatrol-user');
   console.log(token);
 
   const getCenter = () => {
@@ -30,7 +30,7 @@ const Home = () => {
         const response = await fetchApi(
           `/api/welfare?coordinateA=${coords.coords.latitude}&coordinateB=${coords.coords.longitude}`,
           {
-            mehod: 'get',
+            method: 'get',
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${token}`,
