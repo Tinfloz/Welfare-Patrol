@@ -8,26 +8,26 @@ import { timeSince } from '../helpers/time.since';
 const AcceptRequestCard = ({ posted, duration, welfareRequest, hidden }) => {
 
     return (
-        <>
             <Flex
                 justify="space-between"
-                p="2vh"
+                px="1vh"
+                py="2vh"
+                alignItems="center"
             >
                 <HStack>
                     <Icon
                         as={posted ? (FiUser) : (duration ? (BsArrowCounterclockwise) : (HiOutlineLocationMarker))}
                     />
-                    <Text>
+                    <Text fontSize={"sm"}>
                         {posted ? "POSTED BY" : (duration ? "DURATION" : "ADDRESS")}
                     </Text>
                 </HStack>
-                <Text>
+                <Text fontSize={"sm"}>
                     {
                         posted ? welfareRequest?.welfareRequest?.postedBy?.name : (duration ? `${timeSince(welfareRequest?.welfareRequest?.createdAt.split("T")[0])}` : (hidden ? "Hidden" : welfareRequest?.welfareRequest?.address))
                     }
                 </Text>
             </Flex>
-        </>
     )
 }
 
