@@ -61,6 +61,7 @@ exports.acceptRequest = async (req, res) => {
         const welfareRequest = await Welfare.findOneAndUpdate({
             acceptedBy: user,
         });
+        // TODO: do not create if already exists
         await Chat.create({sender: user, receiver: welfareRequest.postedBy});
         console.log(welfareRequest);
         res.status(200).send({message: "Success"});

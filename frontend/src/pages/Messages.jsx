@@ -70,15 +70,19 @@ const Messages = () => {
           <Divider orientation="horizontal" />
           {
             chats.map(({chat, lastMessage, messages}, id)=>{
-              let date = new Date(lastMessage.createdAt);
+              console.log(lastMessage);
+              let date;
+              if (lastMessage){
+               date = new Date(lastMessage.createdAt);
+              }
               return (
                 <MessageBlock
                 key={id}
                 chatId={chat._id}
                 name={chat.sender.name} 
-                time={`${date.getHours()}:${date.getMinutes()}`} 
-                lastMessage={lastMessage.content} 
-                sent={lastMessage.sender === chat.receiver["_id"]}
+                time={lastMessage ? `${date?.getHours()}:${date?.getMinutes()}` : ""} 
+                lastMessage={lastMessage?.content} 
+                sent={lastMessage?.sender === chat.receiver["_id"]}
                 messages={messages}
                 userId={userId}
                 />
