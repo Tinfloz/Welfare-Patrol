@@ -26,7 +26,6 @@ const Creds = ({ register }) => {
     try {
       const URL = register
         ? "/api/signUp" : "/api/signIn";
-        console.log("STATA", user);
         fetchApi(URL, {
           method: "post",
           body: JSON.stringify({email: user.email, password: user.password}),
@@ -36,7 +35,6 @@ const Creds = ({ register }) => {
         })
         .then((res) => res.json())
         .then((json) => {
-          console.log("TOKEN", json.token);
           localStorage.setItem('welfarePatrol-user', json.token);
           navigate(`/home`);
         })
