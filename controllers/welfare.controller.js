@@ -2,6 +2,8 @@ const Chat = require('../models/chat.model');
 const Users = require('../models/user.model');
 const Welfare = require('../models/welfare.model');
 
+const userController = require("../controllers/users.controller");
+
 exports.getRequests = async (req, res) => {
     try {
         const { email } = req.user;
@@ -41,9 +43,10 @@ exports.createRequest = async (req, res) => {
             location: {
                 type: "Point",
                 coordinates: [coordinateA, coordinateB]
-            }
+            },
+            neighborhood: userController.getReverseGeoCodeFn(coordinateA, coordinateB)
         });
-        res.status(200).send({ message: "Success" })
+        res.status(200).send({ message: "Success", welfareRequest })
 
     } catch (error) {
         res.status(500).send({ error: error.errors?.[0]?.message || error });

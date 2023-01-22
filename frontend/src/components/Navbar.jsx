@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, HStack, IconButton } from "@chakra-ui/react";
+import { Box, Flex, HStack, IconButton } from "@chakra-ui/react";
 import { AiFillHome } from "react-icons/ai";
 import { IoIosText } from "react-icons/io";
 import { RiAccountCircleFill } from "react-icons/ri";
@@ -13,11 +13,12 @@ const Navbar = () => {
         <>
             {
                 path === "/home" || path === "/messages" || path === "/profile" ?  (
-                    <>
+                    <Box>
                         <Flex
                             justify="center"
                             alignItems="center"
                             h="12vh"
+                  
                         >
                             <Flex
                                 style={{ background: "#F8D9D2" }}
@@ -28,8 +29,10 @@ const Navbar = () => {
                                 borderColor="gray.300"
                                 w="97vw"
                                 h="10vh"
+                                zIndex="2"
+                                position={"absolute"}
                             >
-                                <HStack spacing="10vh">
+                                <Flex justifyContent={"space-evenly"} w="100%">
                                     <IconButton
                                         icon={<AiFillHome size="4vh" style={{ fill: "white" }} />}
                                         style={{ background: "#F8D9D2" }}
@@ -42,10 +45,10 @@ const Navbar = () => {
                                         icon={<RiAccountCircleFill size="4vh" style={{ fill: "white" }} />}
                                         style={{ background: "#F8D9D2" }}
                                     />
-                                </HStack>
+                                </Flex>
                             </Flex>
                         </Flex>
-                    </>
+                    </Box>
                 ): (
                     null
                 ) 
