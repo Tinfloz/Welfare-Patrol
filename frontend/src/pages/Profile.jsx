@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   VStack,
   Flex,
@@ -14,8 +14,39 @@ import {
 } from '@chakra-ui/react';
 import { GrMail } from 'react-icons/gr';
 import { GoCalendar } from 'react-icons/go';
+import { useNavigate } from 'react-router-dom';
+import fetchApi from '../components/FetchCustom';
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('welfarePatrol-user');
+
+  const [userProfile, setUserProfile] = useState({});
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = fetchApi(`/api/profile`, {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then(res => res.json())
+          .then(json => {
+            setUserProfile(json);
+            console.log(json);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  const logout = () => {
+    localStorage.clear();
+    navigate(`/`);
+  };
   return (
     <>
       <Flex
@@ -27,7 +58,7 @@ const Profile = () => {
         <VStack spacing="4vh">
           <Flex height="10vh" width="100%">
             <Text as="b" fontSize="5vh">
-              Dave Howard
+              {userProfile?.name}
             </Text>
           </Flex>
           <Card>
@@ -45,7 +76,7 @@ const Profile = () => {
                       </Text>
                     </Flex>
                     <Text pt="2" fontSize="md">
-                      daveh@gmail.com
+                      {userProfile?.email}
                     </Text>
                   </HStack>
                 </Box>
@@ -62,15 +93,15 @@ const Profile = () => {
                     </Flex>
 
                     <Text pt="2" fontSize="md">
-                      01/22/2023
+                      {userProfile?.createdAt?.split('T')[0]}
                     </Text>
                   </HStack>
                 </Box>
               </Stack>
             </CardBody>
           </Card>
-          <Button colorScheme="teal" variant="solid">
-            SignOut
+          <Button colorScheme="teal" variant="solid" onClick={logout}>
+            Sign Out
           </Button>
         </VStack>
       </Flex>
