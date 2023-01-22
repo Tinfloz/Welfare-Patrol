@@ -35,8 +35,13 @@ const Creds = ({ register }) => {
         })
         .then((res) => res.json())
         .then((json) => {
-          localStorage.setItem('welfarePatrol-user', json.token);
-          navigate(`/home`);
+          if (json.token){
+
+            localStorage.setItem('welfarePatrol-user', json.token);
+            navigate(`/home`);
+          } else {
+            console.error("Failed!");
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -45,7 +50,7 @@ const Creds = ({ register }) => {
     } catch (error) {
       console.error(error);
     }
-  }, [register]);
+  }, [register, user, navigate]);
 
   return (
     <>
