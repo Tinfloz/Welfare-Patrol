@@ -13,14 +13,9 @@ import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import Autocomplete from 'react-google-autocomplete';
 
 const CreateRequest = () => {
-  const user = localStorage.getItem('user');
-  console.log(user.token);
-  const [welfareRequest, setWelfareRequest] = useState({
-    token: '',
-    address: '',
-    coordinateA: '',
-    coordinateB: '',
-  });
+  const token = localStorage.getItem('user');
+  console.log(token);
+  const [location, setLocation] = useState(null);
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries: ['places'],
@@ -73,17 +68,16 @@ const CreateRequest = () => {
               <Flex justify="center" alignItems="center">
                 <Heading size="md">Montreal , QC</Heading>
               </Flex>
-              {/* <Input
-                type="text"
-                placeholder="Type address"
-                w="40vh"
-                onChange={autoComplete}
-              /> */}
               <Autocomplete
                 apiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
                 style={{ width: '50vh' }}
                 onPlaceSelected={place => {
                   console.log(place);
+                  setLocation(place);
+                  localStorage.setItem('location', place.formatted_address);
+                  var lat = place.geometry.location.lat();
+                  localStorage.setItem('lat', place.geometry.location.lat());
+                  localStorage.setItem('lng', place.geometry.location.lng());
                 }}
                 options={{
                   types: ['(regions)'],
@@ -98,6 +92,7 @@ const CreateRequest = () => {
                 borderWidth="1px"
                 borderColor="gray.300"
                 style={{ background: '#F8D9D2' }}
+                // onClick={postWelfareRequest}
                 color="white"
               >
                 CREATE REQUEST
