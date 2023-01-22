@@ -1,11 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { VStack, Input, Flex, Image, Box } from '@chakra-ui/react';
-import home from '../assests/house.svg';
-import location from '../assests/location.svg';
+import home from '../assets/house.svg';
+import location from '../assets/location.svg';
+import fetchApi from "../components/FetchCustom";
 
 import ButtonComponent from './ButtonComponent';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const Creds = ({ register }) => {
   const navigate = useNavigate();
@@ -24,14 +24,26 @@ const Creds = ({ register }) => {
   const onClick = useCallback(async () => {
     // call api
     try {
-      const response = register
-        ? await axios.post('/api/signUp', user)
-        : axios.post('/signIn', user);
-      console.log(response.data);
-      if (response) {
-        localStorage.setItem('user', response.data.token);
-        navigate(`/home`);
-      }
+      const URL = register
+        ? "/api/signUp" : "/api/signIn";
+        console.log("STATA", user);
+        fetchApi(URL, {
+          method: "post",
+          body: JSON.stringify({email: user.email, password: user.password}),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((res) => res.json())
+        .then((json) => {
+          console.log("TOKEN", json.token);
+          localStorage.setItem('welfarePatrol-user', json.token);
+          navigate(`/home`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
     } catch (error) {
       console.error(error);
     }
