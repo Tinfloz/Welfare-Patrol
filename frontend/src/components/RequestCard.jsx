@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Card, Heading, Badge, Text, CardBody, Stack, Spinner, HStack } from "@chakra-ui/react";
+import { Flex, Box, Card, Heading, Badge, Text, CardBody, Stack, Spinner, HStack } from "@chakra-ui/react";
 import { useJsApiLoader, GoogleMap, Circle } from "@react-google-maps/api";
 import { getDistance } from '../helpers/get.distance';
 import { timeSince } from '../helpers/time.since';
@@ -31,7 +31,10 @@ const RequestCard = ({ userLocation, welfareRequest }) => {
 
     return (
         <>
-            <Card w="90vh" h="50vh" onClick={() => {
+            <Box w="95vw" m={"1vw"} 
+                borderColor={"#fff"}
+            
+            onClick={() => {
                 navigate("/accept/request", { state: { welfareRequest, userLocation } })
             }}>
                 {
@@ -53,14 +56,13 @@ const RequestCard = ({ userLocation, welfareRequest }) => {
                         </>
                     ) : (
                         <>
-                            <CardBody>
                                 <Flex
                                     position="relative"
                                 >
                                     <GoogleMap
                                         center={{ lat: welfareRequest?.location?.coordinates[0], lng: welfareRequest?.location?.coordinates[1] }}
                                         zoom={15}
-                                        mapContainerStyle={{ width: "100%", height: "40vh" }}
+                                        mapContainerStyle={{ width: "100%", height: "25vh" }}
                                         options={{ mapTypeControl: false, zoomControl: false, streetViewControl: false, fullscreenControl: false }}
                                     >
                                         <Circle
@@ -72,8 +74,8 @@ const RequestCard = ({ userLocation, welfareRequest }) => {
                                         position="absolute"
                                         zIndex="1"
                                         justify="flex-end"
-                                        ml="70vh"
                                         bottom="5"
+                                        w="100%"
                                     >
                                         <Badge
                                             bg="white"
@@ -81,29 +83,30 @@ const RequestCard = ({ userLocation, welfareRequest }) => {
                                             borderRadius="1vh"
                                             borderWidth="1px"
                                             borderColor="gray.500"
+                                            marginRight={"2vw"}
                                         >
                                             {timeSince(welfareRequest?.createdAt.split("T")[0])}
                                         </Badge>
                                     </Flex>
                                 </Flex>
-                                <Stack mt='6' direction="column">
+                                <Stack mt='1vh' direction="column">
                                     <Flex
                                         justify="space-between"
+                                        alignItems={"center"}
                                     >
-                                        <Heading size='md'>{welfareRequest?.address}</Heading>
+                                        <Heading size='md'>{welfareRequest?.neighborhood}</Heading>
                                         <HStack spacing="3vh">
-                                            <Heading size="md">
+                                            <Text size="sm">
                                                 {`${getDistance(userLocation.lat, userLocation.lon,
                                                     welfareRequest?.location?.coordinates[0], welfareRequest?.location?.coordinates[1]).toFixed(2)} KM`}
-                                            </Heading>
+                                            </Text>
                                         </HStack>
                                     </Flex>
                                 </Stack>
-                            </CardBody>
                         </>
                     )
                 }
-            </Card >
+            </Box >
         </>
     )
 }

@@ -121,7 +121,7 @@ const MessageBlock = ({chatId, name, time, lastMessage, sent, messages, userId})
         <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{lastMessage}</Text>
         </>
       ):(<Flex justifyContent={"space-between"} alignItems="center" width={"100%"}>
-        <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{lastMessage}</Text>
+        <Text fontSize="2vh" as={`${sent ? "": "b"}`} color="gray.600">{lastMessage ? lastMessage : "New Contact"}</Text>
 
           <Icon
           as={BsFillCircleFill}

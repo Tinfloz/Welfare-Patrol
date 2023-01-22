@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Flex, Heading, IconButton, VStack, Box, Spinner } from "@chakra-ui/react";
-import { IoMdAdd } from "react-icons/io";
+import { AiOutlinePlus } from "react-icons/ai";
+import { FiChevronDown } from "react-icons/fi";
+
 import RequestCard from '../components/RequestCard';
 import fetchApi from "../components/FetchCustom";
 import { useNavigate } from 'react-router-dom';
@@ -69,45 +71,45 @@ const Home = () => {
                     </Flex>
                 </>
             ) : (
-                <>
-                    <Box
-                        p="5vh"
-                    >
+                <VStack p={"3vw"} mt={"1vh"} w={"100vw"}>
+                   
                         <Flex
                             justify="center"
                             alignItems="center"
                         >
                             <Heading
-                                size='md'
+                                size='xs'
                             >
                                 Montreal, QC
                             </Heading>
+                            <IconButton
+                                        icon={<FiChevronDown size="2.5vh" style={{ fill: "white" }} />}
+                                        style={{ background: "#fff" }}
+                                    />
                         </Flex>
                         <Flex
                             justify="space-between"
-                            p="5vh"
+                            w="100%"
+                            alignItems={"center"}
                         >
                             <Heading
-                                size='md'
+                                size='lg'
                             >
                                 Welfare Requests
                             </Heading>
                             <IconButton
                                 aria-label='add-request'
-                                icon={<IoMdAdd style={{ size: "5vh" }} />}
+                                icon={<AiOutlinePlus  size="3vh" />}
                                 bg="white"
                                 _hover={{ bg: "white" }}
                             />
                         </Flex>
-                        <Flex
-                            justify="center"
-                            alignItems="center"
-                            pb="20vh"
-                        >
-                            <VStack spacing="5vh">
+              
+                            <VStack spacing="3vh">
                                 {
-                                    welfareRequest?.map(element => (
+                                    welfareRequest?.map((element, id) => (
                                         <RequestCard
+                                            key={id}
                                             welfareRequest={element}
                                             userLocation={position}
                                             position={position}
@@ -115,9 +117,7 @@ const Home = () => {
                                     ))
                                 }
                             </VStack>
-                        </Flex>
-                    </Box>
-                </>
+                </VStack>
             )}
         </>
     )
