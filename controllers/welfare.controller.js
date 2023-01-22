@@ -49,6 +49,7 @@ exports.createRequest = async (req, res) => {
         res.status(200).send({ message: "Success", welfareRequest })
 
     } catch (error) {
+        console.log(error);
         res.status(500).send({ error: error.errors?.[0]?.message || error });
     }
 }
