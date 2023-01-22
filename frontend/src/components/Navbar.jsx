@@ -12,23 +12,21 @@ const Navbar = () => {
     return (
         <>
             {
-                path === "/" || path === "/login" || path === "/register" || path === "/create/request" || path === "/accept/request" || path === "/chat" ? (
-                    null
-                ) : (
+                path === "/home" || path === "/messages" || path === "/profile" ?  (
                     <>
                         <Flex
                             justify="center"
                             alignItems="center"
-                            h="15vh"
+                            h="12vh"
                         >
                             <Flex
                                 style={{ background: "#F8D9D2" }}
-                                borderRadius="1.5vh"
+                                borderRadius="15vw"
                                 justify="center"
                                 alignItems="center"
                                 borderWidth="1px"
                                 borderColor="gray.300"
-                                w="90vh"
+                                w="97vw"
                                 h="10vh"
                             >
                                 <HStack spacing="10vh">
@@ -48,7 +46,9 @@ const Navbar = () => {
                             </Flex>
                         </Flex>
                     </>
-                )
+                ): (
+                    null
+                ) 
             }
         </>
     )

@@ -19,7 +19,7 @@ exports.getRequests = async (req, res) => {
                     $maxDistance: 10000
                 }
             }
-        })
+        }).populate("postedBy")
         res.status(200).send({ welfareRequests });
     } catch (error) {
         console.error(error);
