@@ -12,9 +12,7 @@ const Navbar = () => {
     return (
         <>
             {
-                path === "/" || path === "/login" || path === "/register" || path === "/create/request" || path === "/accept/request" || path === "/chat" ? (
-                    null
-                ) : (
+                path === "/home" || path === "/messages" || path === "/profile" ?  (
                     <>
                         <Flex
                             justify="center"
@@ -48,7 +46,9 @@ const Navbar = () => {
                             </Flex>
                         </Flex>
                     </>
-                )
+                ): (
+                    null
+                ) 
             }
         </>
     )
