@@ -14,8 +14,18 @@ import {
 } from '@chakra-ui/react';
 import { GrMail } from 'react-icons/gr';
 import { GoCalendar } from 'react-icons/go';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    localStorage.removeItem('welfarePatrol-user');
+    localStorage.removeItem('address');
+    localStorage.removeItem('lat');
+    localStorage.removeItem('lng');
+    localStorage.removeItem('user');
+    navigate(`/`);
+  };
   return (
     <>
       <Flex
@@ -69,8 +79,8 @@ const Profile = () => {
               </Stack>
             </CardBody>
           </Card>
-          <Button colorScheme="teal" variant="solid">
-            SignOut
+          <Button colorScheme="teal" variant="solid" onClick={logout}>
+            Sign Out
           </Button>
         </VStack>
       </Flex>
