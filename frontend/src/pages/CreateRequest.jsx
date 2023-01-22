@@ -12,17 +12,15 @@ import {
 import { useJsApiLoader, GoogleMap, Marker } from '@react-google-maps/api';
 import Autocomplete from 'react-google-autocomplete';
 import fetchApi from '../components/FetchCustom';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const CreateRequest = () => {
     const token = localStorage.getItem('welfarePatrol-user');
     console.log(token);
     const navigate = useNavigate();
-    const [location, setLocation] = useState({
-        lat: 45.5307609, lng: -73.5526934
-    });
+    const { state } = useLocation();
+    const [location, setLocation] = useState(state);
     const [address, setAddress] = useState("");
-
     const { isLoaded } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
         id: 'google-map-script',
