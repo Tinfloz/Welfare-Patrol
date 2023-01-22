@@ -19,8 +19,6 @@ const Home = () => {
         });
     };
 
-
-
     const [welfareRequest, setWelfareRequest] = useState(null);
     const [position, setPosition] = useState({
         lat: null,

@@ -9,7 +9,9 @@ import { useEffect } from 'react';
 const AcceptRequests = () => {
 
     const { isLoaded } = useJsApiLoader({
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+        id: 'google-map-script',
+        libraries: ["places"]
     });
 
     const token = localStorage.getItem("welfarePatrol-user")

@@ -6,8 +6,8 @@ const userController = require("../controllers/users.controller");
 
 exports.getRequests = async (req, res) => {
     try {
-        const {email} = req.user;
-        const {coordinateA, coordinateB} = req.query;
+        const { email } = req.user;
+        const { coordinateA, coordinateB } = req.query;
         const user = await Users.findOne({ email });
         if (!user) {
             throw "User doesn't exist";
@@ -16,7 +16,7 @@ exports.getRequests = async (req, res) => {
             location: {
                 $near:
                 {
-                    $geometry: { type: "Point",  coordinates: [ coordinateA, coordinateB ] },
+                    $geometry: { type: "Point", coordinates: [coordinateA, coordinateB] },
                     $minDistance: 0,
                     $maxDistance: 10000
                 }
@@ -32,7 +32,7 @@ exports.getRequests = async (req, res) => {
 exports.createRequest = async (req, res) => {
     try {
         const { address, coordinateA, coordinateB } = req.body;
-        const {email} = req.user;
+        const { email } = req.user;
         const user = await Users.findOne({ email });
         if (!user) {
             throw "User doesn't exist";
@@ -46,8 +46,8 @@ exports.createRequest = async (req, res) => {
             },
             neighborhood: await userController.getReverseGeoCodeFn(coordinateA, coordinateB)
         });
-        res.status(200).send({message: "Success", welfareRequest})
- 
+        res.status(200).send({ message: "Success", welfareRequest })
+
     } catch (error) {
         res.status(500).send({ error: error.errors?.[0]?.message || error });
     }
@@ -55,7 +55,7 @@ exports.createRequest = async (req, res) => {
 
 exports.acceptRequest = async (req, res) => {
     try {
-        const {email} = req.user;
+        const { email } = req.user;
         const user = await Users.findOne({ email });
         console.log("USER", user);
         if (!user) {
@@ -65,9 +65,9 @@ exports.acceptRequest = async (req, res) => {
             acceptedBy: user,
         });
         // TODO: do not create if already exists
-        await Chat.create({sender: user, receiver: welfareRequest.postedBy});
+        await Chat.create({ sender: user, receiver: welfareRequest.postedBy });
         console.log(welfareRequest);
-        res.status(200).send({message: "Success"});
+        res.status(200).send({ message: "Success" });
     } catch (error) {
         res.status(500).send({ error: error.errors?.[0]?.message || error });
     }
