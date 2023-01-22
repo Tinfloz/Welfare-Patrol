@@ -1,5 +1,6 @@
 const Chat = require('../models/chat.model');
 const Users = require('../models/user.model');
+const Message = require('../models/message.model');
 const Welfare = require('../models/welfare.model');
 
 exports.getChats = async (req, res) => {
@@ -9,9 +10,20 @@ exports.getChats = async (req, res) => {
         if (!user) {
             throw "User doesn't exist";
         }
-        const chats = await Chat.find({ $or: [{ sender: user }, { receiver: user }] });
-
-        res.status(200).send({ chats });
+        const chats = await Chat.find({ $or: [{ sender: user }, { receiver: user }] })
+        .populate("sender")
+        .populate("receiver");
+        const currentUserId = req.user.id;
+        const filteredChats = await Promise.all(chats.map(async (chat)=>{
+            let message = await Message.findOne({chat: chat.id}, null,  { sort: { createdAt: -1 } });
+            if (chat.sender === currentUserId){
+                let temp = chat.sender;
+                chat.sender = chat.receiver;
+                chat.receiver = temp;
+            }
+            return {chat, lastMessage: message};
+        }));
+        res.status(200).send({ chats: filteredChats });
     } catch (error) {
         console.error(error);
         res.status(500).send({ error: error.errors?.[0]?.message || error });
