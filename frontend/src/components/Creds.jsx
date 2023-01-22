@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { VStack, Input, Flex, Image, Box } from '@chakra-ui/react';
 import home from '../assests/house.svg';
 import location from '../assests/location.svg';
+
 import ButtonComponent from './ButtonComponent';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
