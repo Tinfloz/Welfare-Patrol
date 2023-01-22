@@ -6,6 +6,7 @@ import { FiChevronDown } from "react-icons/fi";
 import RequestCard from '../components/RequestCard';
 import fetchApi from "../components/FetchCustom";
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const Home = () => {
 
@@ -119,6 +120,7 @@ const Home = () => {
                             </VStack>
                 </VStack>
             )}
+            <Navbar/>
         </>
     )
 }

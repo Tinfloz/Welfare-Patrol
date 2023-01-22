@@ -16,6 +16,7 @@ import { GrMail } from 'react-icons/gr';
 import { GoCalendar } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
 import fetchApi from '../components/FetchCustom';
+import Navbar from '../components/Navbar';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -105,6 +106,7 @@ const Profile = () => {
           </Button>
         </VStack>
       </Flex>
+      <Navbar/>
     </>
   );
 };
